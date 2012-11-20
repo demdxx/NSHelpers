@@ -8,6 +8,7 @@
 //
 
 #import "NSString+MD5.h"
+#import <CommonCrypto/CommonDigest.h>
 
 #ifndef __has_feature
 #   define __has_feature(x) 0
@@ -18,7 +19,8 @@
 + (NSString *)stringWithMD5OfFile:(NSString *)path
 {
 	NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath: path];
-	if (handle == nil) {
+	if (handle == nil)
+	{
 		return nil;
 	}
 
@@ -27,14 +29,17 @@
 
 	BOOL done = NO;
 
-	while (!done) {
+	while (!done)
+	{
 
 #if __has_feature(objc_arc)
-        @autoreleasepool {
+        @autoreleasepool
+        {
             NSData *fileData = [[NSData alloc] initWithData: [handle readDataOfLength: 4096]];
             CC_MD5_Update (&md5, [fileData bytes], [fileData length]);
 
-            if ([fileData length] == 0) {
+            if ([fileData length] == 0)
+            {
                 done = YES;
             }
         }
@@ -43,7 +48,8 @@
 		NSData *fileData = [[NSData alloc] initWithData: [handle readDataOfLength: 4096]];
 		CC_MD5_Update (&md5, [fileData bytes], [fileData length]);
 
-		if ([fileData length] == 0) {
+		if ([fileData length] == 0)
+		{
 			done = YES;
 		}
 
@@ -69,8 +75,8 @@
 
 }
 
-- (NSString *)md5 {
-
+- (NSString *)md5
+{
 	CC_MD5_CTX md5;
 	CC_MD5_Init (&md5);
 	CC_MD5_Update (&md5, [self UTF8String], [self length]);

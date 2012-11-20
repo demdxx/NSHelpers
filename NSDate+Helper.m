@@ -1,5 +1,5 @@
 //
-//  NSDate+Normale.m
+//  NSDate+Helper.m
 //
 //  @copyright 2012 Dmitry Ponomarev <demdxx@gmail.com>
 //  @license CC BY 3.0
