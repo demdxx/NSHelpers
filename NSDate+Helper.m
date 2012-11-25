@@ -104,7 +104,7 @@
     return [NSDate offset:self days:days months:months years:years];
 }
 
-#pragma mark datae formats
+#pragma mark date formats
 
 + (NSString *)dateFormatString
 {
