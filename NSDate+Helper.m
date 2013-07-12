@@ -90,7 +90,6 @@
 
     // Clean up
     DT_OBJECT_RELEASE(dateComponents);
-    DT_OBJECT_RELEASE(dateFormatter);
 
     return newDate;
 }
