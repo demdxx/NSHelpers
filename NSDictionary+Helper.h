@@ -9,6 +9,8 @@
 
 @interface NSDictionary (Helper)
 
-- (id)valueForKey:(NSString *)key defval:(id)defval;
+- (id)valueForKey:(NSString *)key defVal:(id)defVal;
+- (id)valueForKeys:(NSArray *)keys;
+- (id)valueForKeys:(NSArray *)keys devVal:(id)defVal;
 
 @end
