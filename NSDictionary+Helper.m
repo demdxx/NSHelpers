@@ -17,20 +17,22 @@
 {
   NSMutableDictionary * result = [NSMutableDictionary dictionaryWithDictionary:dict1];
   
-  [dict2 enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-    id obj2 = [dict1 objectForKey:key];
-    if (nil != obj2) {
-      if ([obj isKindOfClass:NSDictionary.class] && [obj2 isKindOfClass:NSDictionary.class]) {
-        NSDictionary *newVal = [obj2 dictionaryByMergingWith:(NSDictionary *)obj];
-        [result setObject:newVal forKey:key];
+  if (nil != dict2) {
+    [dict2 enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+      id obj2 = [dict1 objectForKey:key];
+      if (nil != obj2) {
+        if ([obj isKindOfClass:NSDictionary.class] && [obj2 isKindOfClass:NSDictionary.class]) {
+          NSDictionary *newVal = [obj2 dictionaryByMergingWith:(NSDictionary *)obj];
+          [result setObject:newVal forKey:key];
+        } else {
+          [result setObject:obj forKey:key];
+        }
       } else {
         [result setObject:obj forKey:key];
       }
-    } else {
-      [result setObject:obj forKey:key];
-    }
-  }];
-
+    }];
+  }
+  
 #if __has_feature(objc_arc)
   return [result autorelease];
 #else
