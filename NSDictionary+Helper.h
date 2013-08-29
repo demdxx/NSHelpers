@@ -9,6 +9,9 @@
 
 @interface NSDictionary (Helper)
 
++ (NSDictionary *)dictionaryByMerging:(NSDictionary *)dict1 with:(NSDictionary *)dict2;
+- (NSDictionary *)dictionaryByMergingWith:(NSDictionary *)dict;
+
 - (id)valueForKey:(NSString *)key defVal:(id)defVal;
 - (id)valueForKeys:(NSArray *)keys;
 - (id)valueForKeys:(NSArray *)keys devVal:(id)defVal;
