@@ -25,4 +25,6 @@
 
 - (NSString *)trim;
 
+- (NSString *)replaceByDict:(NSDictionary *)params;
+
 @end

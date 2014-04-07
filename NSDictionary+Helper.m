@@ -48,7 +48,7 @@
 - (id)valueForKey:(NSString *)key defVal:(id)defVal
 {
   id val = [self valueForKey:key];
-  return nil==val ? defVal : val;
+  return nil == val || [NSNull null] == val ? defVal : val;
 }
 
 - (id)valueForKeys:(NSArray *)keys
@@ -60,7 +60,7 @@
 {
   id val;
   for (NSString *key in keys) {
-    if (nil!=(val = [self valueForKey:key])) {
+    if (nil != (val = [self valueForKey:key]) && [NSNull null] != val) {
       return val;
     }
   }
