@@ -38,4 +38,13 @@
 - (NSInteger)secondsBetween:(NSDate *)date calendar:(NSCalendar *)calendar;
 - (NSInteger)secondsBetween:(NSDate *)date;
 
+- (NSDate *)startOf:(NSCalendarUnit)calendarUnit;
+- (NSDate *)endOf:(NSCalendarUnit)calendarUnit;
+- (NSDate *)startOfWeek;
+- (NSDate *)endOfWeek;
+- (NSDate *)startOfMonth;
+- (NSDate *)endOfMonth;
+- (NSDate *)startOfYear;
+- (NSDate *)endOfYear;
+
 @end
