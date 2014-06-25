@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name            = 'NSHelpers'
   s.author          = { "Dmitry Ponomarev" => "demdxx@gmail.com" }
-  s.version         = '0.0.2'
+  s.version         = '0.0.5'
   s.license         = 'CC BY 3.0'
   s.summary         = 'Extension of the standard classes NS.'
   s.homepage        = 'https://github.com/demdxx/NSHelpers'
