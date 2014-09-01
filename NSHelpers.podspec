@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
   s.name            = 'NSHelpers'
   s.author          = { "Dmitry Ponomarev" => "demdxx@gmail.com" }
-  s.version         = '0.0.5'
+  s.version         = '0.0.6'
   s.license         = 'CC BY 3.0'
   s.summary         = 'Extension of the standard classes NS.'
   s.homepage        = 'https://github.com/demdxx/NSHelpers'
-  s.source          = {:git => 'https://github.com/demdxx/NSHelpers.git', :tag => 'v0.0.5'}
+  s.source          = {:git => 'https://github.com/demdxx/NSHelpers.git', :tag => 'v0.0.6'}
 
   # Deployment
   s.ios.deployment_target = '3.0'
