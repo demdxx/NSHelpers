@@ -21,25 +21,53 @@
 
 @implementation NSDate (Helper)
 
-#pragma mark from date
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark – Date from string
+////////////////////////////////////////////////////////////////////////////////
 
 + (NSDate *)dateFromString:(NSString *)string
 {
 	return [NSDate dateFromString:string withFormat:[NSDate dbFormatString]];
 }
 
++ (NSDate *)dateFromString:(NSString *)string timeZone:(id)timeZone
+{
+  return [NSDate dateFromString:string withFormat:[NSDate dbFormatString] timeZone:timeZone];
+}
+
 + (NSDate *)dateFromString:(NSString *)string withFormat:(NSString *)format
+{
+	return [NSDate dateFromString:string withFormat:format timeZone:nil];
+}
+
++ (NSDate *)dateFromString:(NSString *)string withFormat:(NSString *)format timeZone:(id)timeZone
 {
 	NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
 	[inputFormatter setDateFormat:format];
 	NSDate *date = [inputFormatter dateFromString:string];
+  if (nil != timeZone) {
+    if ([timeZone isKindOfClass:[NSTimeZone class]]) {
+      [inputFormatter setTimeZone:timeZone];
+    } else {
+      [inputFormatter setTimeZone:[NSTimeZone timeZoneWithName:(NSString *)timeZone]];
+    }
+  }
 	DT_OBJECT_RELEASE(inputFormatter);
 	return date;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark – String from date
+////////////////////////////////////////////////////////////////////////////////
+
 + (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString *)format
 {
 	return [date stringWithFormat:format];
+}
+
++ (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString *)format timeZone:(id)timeZone
+{
+	return [date stringWithFormat:format timeZone:timeZone];
 }
 
 + (NSString *)stringFromDate:(NSDate *)date
@@ -47,33 +75,71 @@
 	return [date string];
 }
 
-#pragma mark format to string
++ (NSString *)stringFromDate:(NSDate *)date timeZone:(id)timeZone
+{
+  return [date stringWithTimeZone:timeZone];
+}
+
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark – format to string
+////////////////////////////////////////////////////////////////////////////////
 
 - (NSString *)string
 {
 	return [self stringWithFormat:[NSDate dbFormatString]];
 }
 
+- (NSString *)stringWithTimeZone:(id)timeZone
+{
+	return [self stringWithFormat:[NSDate dbFormatString] timeZone:timeZone];
+}
+
 - (NSString *)stringWithFormat:(NSString *)format
+{
+	return [self stringWithFormat:format timeZone:nil];
+}
+
+- (NSString *)stringWithFormat:(NSString *)format timeZone:(id)timeZone
 {
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateFormat:format];
 	NSString *timestamp_str = [outputFormatter stringFromDate:self];
+  if (nil != timeZone) {
+    if ([timeZone isKindOfClass:[NSTimeZone class]]) {
+      [outputFormatter setTimeZone:timeZone];
+    } else {
+      [outputFormatter setTimeZone:[NSTimeZone timeZoneWithName:(NSString *)timeZone]];
+    }
+  }
 	DT_OBJECT_RELEASE(outputFormatter);
 	return timestamp_str;
 }
 
 - (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle
 {
+	return [self stringWithDateStyle:dateStyle timeStyle:timeStyle timeZone:nil];
+}
+
+- (NSString *)stringWithDateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle timeZone:(id)timeZone
+{
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateStyle:dateStyle];
 	[outputFormatter setTimeStyle:timeStyle];
 	NSString *outputString = [outputFormatter stringFromDate:self];
+  if (nil != timeZone) {
+    if ([timeZone isKindOfClass:[NSTimeZone class]]) {
+      [outputFormatter setTimeZone:timeZone];
+    } else {
+      [outputFormatter setTimeZone:[NSTimeZone timeZoneWithName:(NSString *)timeZone]];
+    }
+  }
 	DT_OBJECT_RELEASE(outputFormatter);
 	return outputString;
 }
 
-#pragma mark offsets
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark – Date offsets
+////////////////////////////////////////////////////////////////////////////////
 
 + (NSDate *)offset:(NSDate *)date days:(NSInteger)days months:(NSInteger)months years:(NSInteger)years
 {
@@ -103,7 +169,9 @@
     return [NSDate offset:self days:days months:months years:years];
 }
 
-#pragma mark date formats
+////////////////////////////////////////////////////////////////////////////////
+#pragma mark – date formats
+////////////////////////////////////////////////////////////////////////////////
 
 + (NSString *)dateFormatString
 {
