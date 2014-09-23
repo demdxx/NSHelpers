@@ -13,6 +13,7 @@
 - (NSDictionary *)dictionaryByMergingWith:(NSDictionary *)dict;
 
 - (id)valueForKey:(NSString *)key defVal:(id)defVal;
+- (id)valueForKeyPath:(NSString *)path defVal:(id)defVal;
 - (id)valueForKeys:(NSArray *)keys;
 - (id)valueForKeys:(NSArray *)keys devVal:(id)defVal;
 
