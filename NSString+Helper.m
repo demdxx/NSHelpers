@@ -117,11 +117,29 @@
     return [self splitByRegex:expression splits:nil];
 }
 
-#pragma mark other
+#pragma mark – other
 
 - (NSString *)trim
 {
     return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+#pragma mark – Replaces
+
+- (NSString *)replaceByDict:(NSDictionary *)params
+{
+#if __has_feature(objc_arc)
+  NSMutableString *result = [NSMutableString stringWithString:self];
+#else
+  NSMutableString *result = [[[NSMutableString stringWithString:self] retain] autorelease];
+#endif
+  for (NSString *key in params) {
+    [result replaceOccurrencesOfString:key
+                            withString:(NSString *)params[key]
+                               options:NSLiteralSearch
+                                 range:NSMakeRange(0, result.length)];
+  }
+  return result;
 }
 
 @end

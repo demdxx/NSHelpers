@@ -87,7 +87,7 @@
     return [self second:[NSCalendar currentCalendar]];
 }
 
-#pragma mark between
+#pragma mark – between
 
 - (NSInteger)yearsBetween:(NSDate *)date calendar:(NSCalendar *)calendar
 {
@@ -183,6 +183,64 @@
 - (NSInteger)secondsBetween:(NSDate *)date
 {
     return [self secondsBetween:date calendar:[NSCalendar currentCalendar]];
+}
+
+#pragma mark – Start of / End of date
+
+- (NSDate *)startOf:(NSCalendarUnit)calendarUnit
+{
+  NSCalendar *cal = [NSCalendar currentCalendar];
+  NSDate *now = [NSDate date];
+  NSDate *startOf;
+  NSTimeInterval interval;
+  [cal rangeOfUnit:calendarUnit
+         startDate:&startOf
+          interval:&interval
+           forDate:now];
+  return startOf;
+}
+
+- (NSDate *)endOf:(NSCalendarUnit)calendarUnit
+{
+  NSCalendar *cal = [NSCalendar currentCalendar];
+  NSDate *now = [NSDate date];
+  NSDate *startOf;
+  NSTimeInterval interval;
+  [cal rangeOfUnit:calendarUnit
+         startDate:&startOf
+          interval:&interval
+           forDate:now];
+  return [startOf dateByAddingTimeInterval:interval-1];
+}
+
+- (NSDate *)startOfWeek
+{
+  return [self startOf:NSWeekCalendarUnit];
+}
+
+- (NSDate *)endOfWeek
+{
+  return [self endOf:NSWeekCalendarUnit];
+}
+
+- (NSDate *)startOfMonth
+{
+  return [self startOf:NSMonthCalendarUnit];
+}
+
+- (NSDate *)endOfMonth
+{
+  return [self endOf:NSMonthCalendarUnit];
+}
+
+- (NSDate *)startOfYear
+{
+  return [self startOf:NSYearCalendarUnit];
+}
+
+- (NSDate *)endOfYear
+{
+  return [self endOf:NSYearCalendarUnit];
 }
 
 @end
