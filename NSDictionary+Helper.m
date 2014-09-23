@@ -54,7 +54,7 @@
 - (id)valueForKeyPath:(NSString *)path defVal:(id)defVal
 {
   id val = [self valueForKeyPath:path];
-  return val;
+  return nil == val || [NSNull null] == val ? defVal : val;
 }
 
 - (id)valueForKeys:(NSArray *)keys
